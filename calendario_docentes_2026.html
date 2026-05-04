@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Calendario Docentes · Talleres Mecánica 2026</title>
+<style>
+:root{
+  --bg:#f5f5f5;--bg2:#ffffff;--bg3:#eeeeee;
+  --border:#e0e0e0;--border2:#cccccc;
+  --text:#111111;--text2:#555555;--text3:#999999;
+  --cnc:#c47d1a;--cnc-bg:#fdf4e3;--cnc-text:#a0600f;
+  --met:#3a7fc1;--met-bg:#e8f2fb;--met-text:#2a5a8a;
+  --man:#2e9e60;--man-bg:#e8f8ef;--man-text:#1e6b40;
+  --tar:#c94040;--tar-bg:#faeaea;--tar-text:#8b2a2a;
+  --r:14px;--r-sm:10px;
+  --xs:11px;--sm:13px;--md:15px;--lg:20px;--xl:28px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f0f0f;--bg2:#1a1a1a;--bg3:#262626;
+    --border:#2e2e2e;--border2:#3d3d3d;
+    --text:#f2f2f2;--text2:#a0a0a0;--text3:#666666;
+    --cnc:#e09a3a;--cnc-bg:#2a1e08;--cnc-text:#f0b95a;
+    --met:#5a9fd4;--met-bg:#0c1e30;--met-text:#7db8e8;
+    --man:#4ab87a;--man-bg:#0a1f12;--man-text:#6dd49a;
+    --tar:#e06060;--tar-bg:#200c0c;--tar-text:#f08080;
+  }
+  .hdr{background:rgba(15,15,15,.92)!important}
+  .card,.proxima-card,.info-card,.clase-card{box-shadow:none!important}
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+.screen{display:none}.screen.active{display:block}
+/* HERO */
+.hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:64px 28px 44px}
+.eyebrow{font-size:var(--xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.hero-title{font-size:var(--xl);font-weight:800;line-height:1.2;color:var(--text);margin-bottom:12px}
+.hero-sub{font-size:var(--sm);color:var(--text2);line-height:1.65}
+.hero-body{padding:36px 28px 100px}
+/* GRID SELECTOR */
+.sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.sel-label{font-size:var(--xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin:32px 0 12px}
+.sel-label:first-child{margin-top:0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;cursor:pointer;transition:transform .15s,box-shadow .2s,border-color .2s;-webkit-tap-highlight-color:transparent;box-shadow:0 1px 3px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.card:hover{border-color:var(--border2);box-shadow:0 4px 16px rgba(0,0,0,.09);transform:translateY(-2px)}
+.card:active{transform:scale(.97);box-shadow:none}
+.card-stripe{position:absolute;top:0;left:0;right:0;height:4px;border-radius:18px 18px 0 0;background:var(--border)}
+.card-body{padding:28px 20px 24px}
+.card-label{font-size:var(--xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.card-title{font-size:var(--md);font-weight:800;color:var(--text);line-height:1.2;margin-bottom:3px}
+.card-sub{font-size:var(--xs);font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(245,245,245,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;height:62px;padding:0 24px}
+.back-btn{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;font-family:inherit}
+.back-btn:hover{background:var(--border)}
+.hdr-info{flex:1;min-width:0}
+.hdr-name{font-size:var(--sm);font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;letter-spacing:.04em}
+.hdr-sub{font-size:var(--xs);color:var(--text3);margin-top:2px;font-weight:600}
+/* TABS */
+.tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:16px 18px 14px;font-size:var(--xs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--border2)}
+.tab-btn.t-man.active{color:var(--man);border-bottom-color:var(--man)}
+.tab-btn.t-tar.active{color:var(--tar);border-bottom-color:var(--tar)}
+.tab-pane{display:none;padding:28px 24px 100px}.tab-pane.active{display:block}
+/* SECTION LABEL */
+.sec-label{font-size:var(--xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+/* HOY */
+.hoy-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.hoy-card{border-radius:18px;padding:26px 24px 22px;border:1px solid transparent}
+.hoy-card.cnc{background:var(--cnc-bg);border-color:rgba(196,125,26,.15)}
+.hoy-card.met{background:var(--met-bg);border-color:rgba(58,127,193,.15)}
+.hoy-card.none{background:var(--bg2);border-color:var(--border)}
+.hoy-turno{font-size:var(--xs);font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.hoy-card.none .hoy-turno{color:var(--text3)}
+.hoy-mat{font-size:var(--lg);font-weight:800;line-height:1.25;text-transform:uppercase;margin-bottom:8px}
+.hoy-card.none .hoy-mat{color:var(--text3)}
+.hoy-prof{font-size:var(--sm);color:var(--text2);font-weight:500}
+.hoy-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hoy-tag{padding:5px 13px;border-radius:100px;font-size:var(--xs);font-weight:700;background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+/* PROXIMAS */
+.prox-section{margin-bottom:36px}
+.proxima-card{display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.prox-fecha{font-size:var(--xs);font-weight:700;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em}
+.prox-mat{font-size:var(--sm);font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.02em;line-height:1.3}
+/* LISTA CLASES */
+.month-block{margin-bottom:32px}
+.month-title{font-size:var(--xs);font-weight:800;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--border)}
+.clase-card{display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:15px 18px 15px 20px;margin-bottom:8px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .15s,transform .15s}
+.clase-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.clase-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.clase-card.cnc::before{background:var(--cnc)}.clase-card.met::before{background:var(--met)}
+.clase-date{min-width:52px;flex-shrink:0}
+.clase-dow{font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.clase-day{font-size:var(--xl);font-weight:800;color:var(--text);line-height:1;letter-spacing:-.02em}
+.clase-sep{width:1px;height:36px;background:var(--border);flex-shrink:0}
+.clase-info{flex:1;min-width:0}
+.clase-mat{font-size:var(--sm);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.02em;line-height:1.3}
+.clase-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ctag{padding:3px 10px;border-radius:100px;font-size:var(--xs);font-weight:700;background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+/* INFO */
+.info-block{margin-bottom:28px}
+.info-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid var(--border);gap:12px}
+.irow:last-child{border-bottom:none}
+.irow-l{font-size:var(--xs);font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;flex-shrink:0}
+.irow-v{font-size:var(--sm);font-weight:600;color:var(--text);text-align:right;line-height:1.4}
+.icard-head{display:flex;align-items:center;gap:14px;padding:20px 20px 12px}
+.icard-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.icard-title{font-size:var(--xs);font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.07em}
+.icard-sub{font-size:var(--sm);color:var(--text3);margin-top:3px}
+.icard-body{padding:0 20px 20px;font-size:var(--sm);color:var(--text2);line-height:1.65}
+.empty-msg{font-size:var(--md);color:var(--text3);padding:48px 0;text-align:center;font-weight:600}
+
+@media(min-width:768px){
+  .hero{padding:96px 64px 56px}
+  .hero-title{font-size:calc(var(--xl)*1.55)}
+  .hero-sub{font-size:var(--md)}
+  .hero-body{padding:48px 64px 100px;max-width:1100px}
+  .sel-label{margin:44px 0 16px}
+  .sel-grid{gap:16px}
+  .hdr{padding:0 48px;height:68px}
+  .tabs{padding:0 48px}
+  .tab-btn{padding:18px 22px 16px}
+  .tab-pane{padding:40px 48px 100px;max-width:1100px}
+  .hoy-grid{flex-direction:row;gap:16px}
+  .hoy-grid>.hoy-card{flex:1}
+  .prox-section{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .prox-section .sec-label{grid-column:1/-1;margin-bottom:0}
+  .proxima-card{margin-bottom:0}
+  .cal-cols{column-count:2;column-gap:40px}
+  .cal-cols .month-block{break-inside:avoid}
+  .info-two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .info-two-col .info-block{margin-bottom:0}
+}
+
+/* DOCENTES EXTRA */
+.prof-turno{font-size:var(--xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+/* MONTH NAV */
+.month-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.nav-btn{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;font-family:inherit}
+.nav-btn:hover{background:var(--border)}.nav-btn:disabled{opacity:.3;cursor:default}
+.nav-title{font-size:var(--md);font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.04em}
+/* CAL GRID */
+.cal-wrap{padding:16px 16px 80px}
+.cal-wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+.cal-wday{text-align:center;font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;padding:6px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day{height:72px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:6px 7px;cursor:default;transition:box-shadow .15s,transform .15s;position:relative;overflow:hidden}
+.cal-day.has-class{cursor:pointer}
+.cal-day.has-class:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.cal-day.no-clase{cursor:pointer;opacity:.75}
+.cal-day.no-clase:hover{opacity:1;box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.cal-day.other{background:transparent;border-color:transparent}
+.cal-day.today{border-color:var(--text3)}
+.cal-num{font-size:var(--xs);font-weight:700;color:var(--text3);margin-bottom:3px}
+.cal-day.has-class .cal-num{color:var(--text)}
+.cal-day.today .cal-num{background:var(--text);color:var(--bg);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px}
+.cal-chip{font-size:var(--xs);font-weight:800;padding:2px 5px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;line-height:1.3;display:inline-block}
+.cal-chip.cnc{background:var(--cnc-bg);color:var(--cnc)}
+.cal-chip.met{background:var(--met-bg);color:var(--met)}
+.cal-tag{font-size:8px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;line-height:1.3;display:block}
+.cal-tag.libre{color:var(--man);font-weight:800}
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border-radius:24px 24px 0 0;width:100%;max-width:540px;padding:0 0 40px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.modal-ov.open .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:14px auto 20px}
+.modal-hdr{padding:0 24px 16px;border-bottom:1px solid var(--border)}
+.modal-date{font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.modal-group{font-size:var(--lg);font-weight:800;color:var(--text)}
+.modal-body{padding:16px 24px 0}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.modal-tag{padding:4px 12px;border-radius:100px;font-size:var(--xs);font-weight:700;background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+.modal-al-title{font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.modal-al{display:flex;flex-direction:column;gap:6px}
+.modal-al-item{font-size:var(--sm);color:var(--text);padding:10px 14px;background:var(--bg3);border-radius:10px;font-weight:500}
+.modal-motivo{font-size:var(--sm);color:var(--text2);line-height:1.6;padding:14px 16px;background:var(--bg3);border-radius:12px;border:1px solid var(--border)}
+.modal-close{width:100%;margin-top:20px;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:14px;font-size:var(--sm);font-weight:700;color:var(--text2);cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.06em}
+.modal-close:hover{background:var(--border)}
+@media(min-width:768px){
+  .month-nav{padding:16px 48px}
+  .cal-wrap{padding:20px 48px 100px}
+  .cal-day{height:90px;padding:8px 10px}
+  .cal-chip{font-size:var(--xs)}
+  .modal-ov{align-items:center}
+  .modal{border-radius:24px;max-width:480px;margin:0 auto}
+  .sel-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="s-sel" class="screen active">
+  <div class="hero">
+    <div class="eyebrow">CET N°1 &nbsp;·&nbsp; GRAL. ROCA, RÍO NEGRO &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; 4° año Ciclo Superior Mecánica</div>
+    <div class="hero-title">Calendario<br>Docentes</div>
+    <div class="hero-sub">Talleres de <span style="color:var(--cnc);font-weight:700">Máq. Herr. CNC II</span> y <span style="color:var(--met);font-weight:700">Metalurgia Aplicada</span> — Seleccioná tu nombre para ver tu calendario.</div>
+  </div>
+  <div class="hero-body"><div class="sel-grid" id="profs-container"></div></div>
+</div>
+
+<div id="s-cal" class="screen">
+  <div class="hdr">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <div class="hdr-info">
+      <div class="hdr-name" id="hdr-name"></div>
+      <div class="hdr-sub" id="hdr-sub"></div>
+    </div>
+  </div>
+  <div class="month-nav">
+    <button class="nav-btn" id="prev-btn" onclick="changeMonth(-1)">‹</button>
+    <div class="nav-title" id="nav-title"></div>
+    <button class="nav-btn" id="next-btn" onclick="changeMonth(1)">›</button>
+  </div>
+  <div class="cal-wrap">
+    <div class="cal-wdays">
+      <div class="cal-wday">Lun</div><div class="cal-wday">Mar</div><div class="cal-wday">Mié</div>
+      <div class="cal-wday">Jue</div><div class="cal-wday">Vie</div><div class="cal-wday">Sáb</div><div class="cal-wday">Dom</div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-ov" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-date" id="m-date"></div>
+      <div class="modal-group" id="m-group"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tags" id="m-tags"></div>
+      <div id="m-motivo" style="margin-bottom:16px"></div>
+      <div id="m-al-wrap">
+        <div class="modal-al-title">INTEGRANTES DEL GRUPO</div>
+        <div class="modal-al" id="m-al"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DAYS_S=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const DAYS_L=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const NO_LECTIVOS=new Set(['2026-02-12','2026-02-13','2026-04-02','2026-04-03','2026-04-21','2026-05-01','2026-05-25','2026-06-10','2026-06-15','2026-06-20','2026-07-09','2026-07-10','2026-08-13','2026-08-17','2026-09-11','2026-09-21','2026-10-12','2026-11-23','2026-12-08','2026-12-25']);
+function pad(n){return String(n).padStart(2,'0')}
+function dk(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
+function isReceso(d){const m=d.getMonth()+1,day=d.getDate();return m===7&&day>=13&&day<=24}
+function isHabil(d){return !NO_LECTIVOS.has(dk(d))&&!isReceso(d)}
+function getMon(d){const r=new Date(d),dw=r.getDay();r.setDate(r.getDate()+(dw===0?-6:1-dw));return r}
+function getFri(d){return addDays(getMon(d),4)}
+function sameDay(a,b){return dk(a)===dk(b)}
+const TARDE_DOW={1:1,2:2,3:3,4:4};
+const GYM={1:[2,4],2:[2,4],3:[1,3]};
+const CYCLE=['cnc','met','prac'];
+const DIV_CYCLE_OFF={1:2,2:1,3:0};
+const DIV_LABEL={1:'1°',2:'2°',3:'3°'};
+const MAT={cnc:'Máq. Herr. CNC II',met:'Metalurgia Aplicada'};
+const PROFS={manana:{cnc:'Prof. Santander Víctor',met:'Prof. Clozza Fabrizio'},tarde:{cnc:'Prof. Silva Marcelo',met:'Prof. Cambioli Jorge'}};
+function aftWeekIdx(d){return Math.round((getMon(d)-getMon(new Date(2026,2,30)))/(7*24*3600*1000))}
+function spaceForWeek(div,wi){return CYCLE[(DIV_CYCLE_OFF[div]+wi)%3]}
+function buildAfternoon(div,grp){
+  const myDow=TARDE_DOW[grp],start=new Date(2026,2,30),end=new Date(2026,10,30);
+  const days=[],friUsed=new Set();let cur=new Date(start);
+  while(cur<=end){
+    if(cur.getDay()===myDow){
+      const sp=spaceForWeek(div,aftWeekIdx(cur));
+      if(sp==='cnc'||sp==='met'){
+        if(isHabil(cur)&&!isReceso(cur)){days.push({date:new Date(cur),type:sp,rec:false,gym:false,originalDate:null});}
+        else{const fri=getFri(cur),fk=dk(fri)+'-'+div+'-'+grp;
+          if(fri<=end&&isHabil(fri)&&!isReceso(fri)&&!friUsed.has(fk)){friUsed.add(fk);days.push({date:new Date(fri),type:sp,rec:true,gym:false,originalDate:new Date(cur)});}}
+      }
+    }
+    cur=addDays(cur,1);
+  }
+  return days.sort((a,b)=>a.date-b.date);
+}
+const MORNING_CAL={"3_1": [{"date": "2026-05-04", "type": "cnc", "gym": true}, {"date": "2026-05-12", "type": "met", "gym": false}, {"date": "2026-05-26", "type": "cnc", "gym": false}, {"date": "2026-06-02", "type": "met", "gym": false}, {"date": "2026-06-11", "type": "cnc", "gym": false}, {"date": "2026-06-18", "type": "met", "gym": false}, {"date": "2026-06-30", "type": "cnc", "gym": false}, {"date": "2026-07-28", "type": "met", "gym": false}, {"date": "2026-08-04", "type": "cnc", "gym": false}, {"date": "2026-08-11", "type": "met", "gym": false}, {"date": "2026-08-18", "type": "cnc", "gym": false}, {"date": "2026-08-25", "type": "cnc", "gym": false}, {"date": "2026-09-08", "type": "met", "gym": false}, {"date": "2026-09-15", "type": "cnc", "gym": false}, {"date": "2026-09-22", "type": "met", "gym": false}, {"date": "2026-09-29", "type": "cnc", "gym": false}, {"date": "2026-10-06", "type": "met", "gym": false}, {"date": "2026-10-20", "type": "cnc", "gym": false}, {"date": "2026-10-27", "type": "met", "gym": false}, {"date": "2026-11-03", "type": "cnc", "gym": false}, {"date": "2026-11-10", "type": "met", "gym": false}, {"date": "2026-11-19", "type": "met", "gym": false}, {"date": "2026-11-26", "type": "cnc", "gym": false}], "1_2": [{"date": "2026-05-04", "type": "met", "gym": false}, {"date": "2026-05-14", "type": "met", "gym": true}, {"date": "2026-05-22", "type": "cnc", "gym": false}, {"date": "2026-06-03", "type": "met", "gym": false}, {"date": "2026-06-08", "type": "cnc", "gym": false}, {"date": "2026-06-19", "type": "met", "gym": false}, {"date": "2026-06-26", "type": "cnc", "gym": false}, {"date": "2026-07-06", "type": "cnc", "gym": false}, {"date": "2026-08-03", "type": "met", "gym": false}, {"date": "2026-08-14", "type": "cnc", "gym": false}, {"date": "2026-08-25", "type": "met", "gym": true}, {"date": "2026-09-02", "type": "cnc", "gym": false}, {"date": "2026-09-14", "type": "met", "gym": false}, {"date": "2026-09-23", "type": "cnc", "gym": false}, {"date": "2026-10-02", "type": "met", "gym": false}, {"date": "2026-10-09", "type": "cnc", "gym": false}, {"date": "2026-10-16", "type": "met", "gym": false}, {"date": "2026-10-30", "type": "cnc", "gym": false}, {"date": "2026-11-04", "type": "met", "gym": false}, {"date": "2026-11-12", "type": "cnc", "gym": true}, {"date": "2026-11-18", "type": "cnc", "gym": false}, {"date": "2026-11-30", "type": "met", "gym": false}], "1_4": [{"date": "2026-05-05", "type": "cnc", "gym": true}, {"date": "2026-05-15", "type": "met", "gym": false}, {"date": "2026-05-20", "type": "cnc", "gym": false}, {"date": "2026-06-01", "type": "met", "gym": false}, {"date": "2026-06-08", "type": "met", "gym": false}, {"date": "2026-06-23", "type": "cnc", "gym": true}, {"date": "2026-07-06", "type": "met", "gym": false}, {"date": "2026-07-29", "type": "cnc", "gym": false}, {"date": "2026-08-05", "type": "met", "gym": false}, {"date": "2026-08-19", "type": "cnc", "gym": false}, {"date": "2026-08-24", "type": "met", "gym": false}, {"date": "2026-09-02", "type": "met", "gym": false}, {"date": "2026-09-14", "type": "cnc", "gym": false}, {"date": "2026-09-23", "type": "met", "gym": false}, {"date": "2026-09-28", "type": "cnc", "gym": false}, {"date": "2026-10-14", "type": "met", "gym": false}, {"date": "2026-10-21", "type": "met", "gym": false}, {"date": "2026-10-28", "type": "cnc", "gym": false}, {"date": "2026-11-06", "type": "cnc", "gym": false}, {"date": "2026-11-16", "type": "cnc", "gym": false}, {"date": "2026-11-24", "type": "met", "gym": true}, {"date": "2026-11-30", "type": "cnc", "gym": false}], "2_1": [{"date": "2026-05-05", "type": "met", "gym": true}, {"date": "2026-05-13", "type": "met", "gym": false}, {"date": "2026-05-27", "type": "cnc", "gym": false}, {"date": "2026-06-03", "type": "cnc", "gym": false}, {"date": "2026-06-12", "type": "cnc", "gym": false}, {"date": "2026-06-23", "type": "met", "gym": true}, {"date": "2026-06-29", "type": "cnc", "gym": false}, {"date": "2026-07-08", "type": "met", "gym": false}, {"date": "2026-08-07", "type": "cnc", "gym": false}, {"date": "2026-08-12", "type": "met", "gym": false}, {"date": "2026-08-19", "type": "met", "gym": false}, {"date": "2026-08-31", "type": "cnc", "gym": false}, {"date": "2026-09-09", "type": "met", "gym": false}, {"date": "2026-09-18", "type": "cnc", "gym": false}, {"date": "2026-09-30", "type": "cnc", "gym": false}, {"date": "2026-10-09", "type": "met", "gym": false}, {"date": "2026-10-22", "type": "cnc", "gym": true}, {"date": "2026-10-28", "type": "met", "gym": false}, {"date": "2026-11-11", "type": "cnc", "gym": false}, {"date": "2026-11-18", "type": "met", "gym": false}, {"date": "2026-11-27", "type": "cnc", "gym": false}], "2_2": [{"date": "2026-05-06", "type": "cnc", "gym": false}, {"date": "2026-05-18", "type": "cnc", "gym": false}, {"date": "2026-05-27", "type": "met", "gym": false}, {"date": "2026-06-04", "type": "cnc", "gym": true}, {"date": "2026-06-17", "type": "met", "gym": false}, {"date": "2026-06-24", "type": "cnc", "gym": false}, {"date": "2026-06-29", "type": "met", "gym": false}, {"date": "2026-07-27", "type": "met", "gym": false}, {"date": "2026-08-03", "type": "cnc", "gym": false}, {"date": "2026-08-14", "type": "met", "gym": false}, {"date": "2026-08-26", "type": "cnc", "gym": false}, {"date": "2026-09-01", "type": "met", "gym": true}, {"date": "2026-09-07", "type": "cnc", "gym": false}, {"date": "2026-09-16", "type": "met", "gym": false}, {"date": "2026-09-25", "type": "met", "gym": false}, {"date": "2026-10-13", "type": "cnc", "gym": true}, {"date": "2026-10-19", "type": "cnc", "gym": false}, {"date": "2026-10-26", "type": "met", "gym": false}, {"date": "2026-11-02", "type": "met", "gym": false}, {"date": "2026-11-11", "type": "met", "gym": false}, {"date": "2026-11-20", "type": "cnc", "gym": false}], "3_2": [{"date": "2026-05-06", "type": "met", "gym": true}, {"date": "2026-05-14", "type": "cnc", "gym": false}, {"date": "2026-05-21", "type": "cnc", "gym": false}, {"date": "2026-05-28", "type": "met", "gym": false}, {"date": "2026-06-11", "type": "met", "gym": false}, {"date": "2026-06-25", "type": "cnc", "gym": false}, {"date": "2026-07-02", "type": "met", "gym": false}, {"date": "2026-07-07", "type": "cnc", "gym": false}, {"date": "2026-07-28", "type": "cnc", "gym": false}, {"date": "2026-08-06", "type": "met", "gym": false}, {"date": "2026-08-20", "type": "cnc", "gym": false}, {"date": "2026-08-27", "type": "met", "gym": false}, {"date": "2026-09-03", "type": "cnc", "gym": false}, {"date": "2026-09-10", "type": "met", "gym": false}, {"date": "2026-09-24", "type": "cnc", "gym": false}, {"date": "2026-09-29", "type": "met", "gym": false}, {"date": "2026-10-08", "type": "met", "gym": false}, {"date": "2026-10-15", "type": "cnc", "gym": false}, {"date": "2026-10-29", "type": "met", "gym": false}, {"date": "2026-11-05", "type": "cnc", "gym": false}, {"date": "2026-11-10", "type": "cnc", "gym": false}, {"date": "2026-11-26", "type": "met", "gym": false}], "1_1": [{"date": "2026-05-07", "type": "cnc", "gym": true}, {"date": "2026-05-19", "type": "met", "gym": true}, {"date": "2026-06-01", "type": "cnc", "gym": false}, {"date": "2026-06-12", "type": "met", "gym": false}, {"date": "2026-06-17", "type": "cnc", "gym": false}, {"date": "2026-06-22", "type": "met", "gym": false}, {"date": "2026-07-01", "type": "cnc", "gym": false}, {"date": "2026-07-29", "type": "met", "gym": false}, {"date": "2026-08-07", "type": "met", "gym": false}, {"date": "2026-08-12", "type": "cnc", "gym": false}, {"date": "2026-08-26", "type": "met", "gym": false}, {"date": "2026-09-04", "type": "met", "gym": false}, {"date": "2026-09-09", "type": "cnc", "gym": false}, {"date": "2026-09-30", "type": "met", "gym": false}, {"date": "2026-10-05", "type": "cnc", "gym": false}, {"date": "2026-10-13", "type": "met", "gym": true}, {"date": "2026-10-21", "type": "cnc", "gym": false}, {"date": "2026-10-30", "type": "met", "gym": false}, {"date": "2026-11-04", "type": "cnc", "gym": false}, {"date": "2026-11-13", "type": "met", "gym": false}, {"date": "2026-11-25", "type": "cnc", "gym": false}], "3_4": [{"date": "2026-05-07", "type": "met", "gym": false}, {"date": "2026-05-12", "type": "cnc", "gym": false}, {"date": "2026-05-20", "type": "met", "gym": true}, {"date": "2026-05-29", "type": "met", "gym": false}, {"date": "2026-06-09", "type": "cnc", "gym": false}, {"date": "2026-06-18", "type": "cnc", "gym": false}, {"date": "2026-06-30", "type": "met", "gym": false}, {"date": "2026-07-07", "type": "met", "gym": false}, {"date": "2026-07-30", "type": "cnc", "gym": false}, {"date": "2026-08-11", "type": "cnc", "gym": false}, {"date": "2026-08-20", "type": "met", "gym": false}, {"date": "2026-08-28", "type": "cnc", "gym": false}, {"date": "2026-09-08", "type": "cnc", "gym": false}, {"date": "2026-09-15", "type": "met", "gym": false}, {"date": "2026-09-22", "type": "cnc", "gym": false}, {"date": "2026-10-01", "type": "cnc", "gym": false}, {"date": "2026-10-06", "type": "cnc", "gym": false}, {"date": "2026-10-20", "type": "met", "gym": false}, {"date": "2026-10-27", "type": "cnc", "gym": false}, {"date": "2026-11-03", "type": "met", "gym": false}, {"date": "2026-11-12", "type": "met", "gym": false}, {"date": "2026-11-17", "type": "met", "gym": false}], "2_3": [{"date": "2026-05-08", "type": "cnc", "gym": false}, {"date": "2026-05-15", "type": "cnc", "gym": false}, {"date": "2026-05-21", "type": "met", "gym": true}, {"date": "2026-06-05", "type": "cnc", "gym": false}, {"date": "2026-06-16", "type": "met", "gym": true}, {"date": "2026-06-26", "type": "met", "gym": false}, {"date": "2026-07-03", "type": "met", "gym": false}, {"date": "2026-07-27", "type": "cnc", "gym": false}, {"date": "2026-08-10", "type": "met", "gym": false}, {"date": "2026-08-21", "type": "cnc", "gym": false}, {"date": "2026-08-28", "type": "met", "gym": false}, {"date": "2026-09-04", "type": "cnc", "gym": false}, {"date": "2026-09-17", "type": "met", "gym": true}, {"date": "2026-09-25", "type": "cnc", "gym": false}, {"date": "2026-10-05", "type": "met", "gym": false}, {"date": "2026-10-14", "type": "cnc", "gym": false}, {"date": "2026-10-19", "type": "met", "gym": false}, {"date": "2026-11-02", "type": "cnc", "gym": false}, {"date": "2026-11-09", "type": "cnc", "gym": false}, {"date": "2026-11-16", "type": "met", "gym": false}, {"date": "2026-11-25", "type": "met", "gym": false}], "2_4": [{"date": "2026-05-08", "type": "met", "gym": false}, {"date": "2026-05-13", "type": "cnc", "gym": false}, {"date": "2026-05-22", "type": "met", "gym": false}, {"date": "2026-05-29", "type": "cnc", "gym": false}, {"date": "2026-06-05", "type": "met", "gym": false}, {"date": "2026-06-22", "type": "cnc", "gym": false}, {"date": "2026-07-01", "type": "met", "gym": false}, {"date": "2026-07-08", "type": "cnc", "gym": false}, {"date": "2026-07-31", "type": "cnc", "gym": false}, {"date": "2026-08-04", "type": "met", "gym": true}, {"date": "2026-08-24", "type": "cnc", "gym": false}, {"date": "2026-09-01", "type": "cnc", "gym": true}, {"date": "2026-09-07", "type": "met", "gym": false}, {"date": "2026-09-18", "type": "met", "gym": false}, {"date": "2026-10-02", "type": "cnc", "gym": false}, {"date": "2026-10-07", "type": "met", "gym": false}, {"date": "2026-10-16", "type": "cnc", "gym": false}, {"date": "2026-10-23", "type": "cnc", "gym": false}, {"date": "2026-11-09", "type": "met", "gym": false}, {"date": "2026-11-17", "type": "cnc", "gym": true}, {"date": "2026-11-27", "type": "met", "gym": false}], "1_3": [{"date": "2026-05-11", "type": "cnc", "gym": false}, {"date": "2026-05-18", "type": "met", "gym": false}, {"date": "2026-05-28", "type": "cnc", "gym": true}, {"date": "2026-06-04", "type": "met", "gym": true}, {"date": "2026-06-19", "type": "cnc", "gym": false}, {"date": "2026-06-24", "type": "met", "gym": false}, {"date": "2026-07-03", "type": "cnc", "gym": false}, {"date": "2026-07-31", "type": "met", "gym": false}, {"date": "2026-08-05", "type": "cnc", "gym": false}, {"date": "2026-08-10", "type": "cnc", "gym": false}, {"date": "2026-08-21", "type": "met", "gym": false}, {"date": "2026-08-31", "type": "met", "gym": false}, {"date": "2026-09-16", "type": "cnc", "gym": false}, {"date": "2026-09-24", "type": "met", "gym": true}, {"date": "2026-09-28", "type": "met", "gym": false}, {"date": "2026-10-07", "type": "cnc", "gym": false}, {"date": "2026-10-23", "type": "met", "gym": false}, {"date": "2026-10-26", "type": "cnc", "gym": false}, {"date": "2026-11-06", "type": "met", "gym": false}, {"date": "2026-11-13", "type": "cnc", "gym": false}, {"date": "2026-11-20", "type": "met", "gym": false}], "3_3": [{"date": "2026-05-11", "type": "met", "gym": true}, {"date": "2026-05-19", "type": "cnc", "gym": false}, {"date": "2026-05-26", "type": "met", "gym": false}, {"date": "2026-06-02", "type": "cnc", "gym": false}, {"date": "2026-06-09", "type": "met", "gym": false}, {"date": "2026-06-16", "type": "cnc", "gym": false}, {"date": "2026-06-25", "type": "met", "gym": false}, {"date": "2026-07-02", "type": "cnc", "gym": false}, {"date": "2026-07-30", "type": "met", "gym": false}, {"date": "2026-08-06", "type": "cnc", "gym": false}, {"date": "2026-08-18", "type": "met", "gym": false}, {"date": "2026-08-27", "type": "cnc", "gym": false}, {"date": "2026-09-03", "type": "met", "gym": false}, {"date": "2026-09-10", "type": "cnc", "gym": false}, {"date": "2026-09-17", "type": "cnc", "gym": false}, {"date": "2026-10-01", "type": "met", "gym": false}, {"date": "2026-10-08", "type": "cnc", "gym": false}, {"date": "2026-10-15", "type": "met", "gym": false}, {"date": "2026-10-22", "type": "met", "gym": false}, {"date": "2026-10-29", "type": "cnc", "gym": false}, {"date": "2026-11-05", "type": "met", "gym": false}, {"date": "2026-11-19", "type": "cnc", "gym": false}, {"date": "2026-11-24", "type": "cnc", "gym": false}]};
+function buildMorning(div,grp){
+  return (MORNING_CAL[div+'_'+grp]||[]).map(e=>({date:new Date(e.date+'T00:00:00'),type:e.type,gym:e.gym,rec:false,originalDate:null}));
+}
+
+const ALUMNOS = {
+  '1_1': ['Cabrera, Agustina','Cortez Izquierdo, Joaquín I.','García Suárez, Ezequiel E.','Millaldeo, Geraldine','Sandoval, Alexis J.'],
+  '1_2': ['Aballay, Lautaro Nehuen','Campos, Priscila Giuliana','Condori Huarachi, Franco Denis','Fuentealba, Ailen del Carmen','Velásquez Sepúlveda, Álvaro Manuel'],
+  '1_3': ['Atis, Lautaro Emanuel','Gomez, Gimena Magdalena','González, Valentín','Hernandez, Mateo Bautista','Marinao, Alexis Alejo Nataniel'],
+  '1_4': ['Bova, Francisco Tomás','Colilaf, Benjamin Ian','Huentemil, Taiel Horacio','Miranda, Candela Valentina','Osses González, Samira Yasmin'],
+  '2_1': ['Aguayo, Daniel Esteban','Alegre, Camila Alelí','Barrios, Bruno Nicolás','Campos, Francisco','D\'Agostino, Milo Joaquín'],
+  '2_2': ['Amrein, Franco S.','Beroiza, Daiana Mailen','Hueitra Molines, Bautista','González Cortijo, Lucas Daniel','Mansilla, Rocío Belén','Vergara Lopez, Bruno Alejandro'],
+  '2_3': ['Álvarez, Denis Rafael','Arrue, Joaquín','Hernández, Gatica Lucio','Sánchez Garrido, Agustina Macarena','Sombra, Thiago Benjamín'],
+  '2_4': ['Callejo Cholino, Uriel Desiderio','Carrasco, Matías Emanuel','Cerda, Samuel Sergio','Medina, Sofía Helena','Samuel Vázquez, Simón'],
+  '3_1': ['Benítez, Lisandro Agustín','Bou Abdo, Franco','Bravo, Lautaro Facundo','De la Hoz, Magdalena L.','Díaz, Tomás Tiziano','Villarruel, Fausto Nicanor'],
+  '3_2': ['Antrichipay Matus, Franco Jeremías','Bustos, Benjamín Pablo Isaías','Chandía, Daniela I.','González, Alma V.','Sánchez, Juan José','Rodríguez, Fernando'],
+  '3_3': ['Antinori, Thiago E.','Caram, Emir Omar','Carrieri, Luciano Valentín','Coronel, Tihara Anabella','Díaz Aramburu, Jeremías','Ruiz, Santiago B.'],
+  '3_4': ['Aliaga Álvarez, Tobías','Asenjo Rodríguez, Galo','Cide Bueno, Cala','Huaiquimil, Matías Oscar','Mhounh Maripini, Luca Francisco','Sáez, Melina A.'],
+};
+
+const MOTIVOS = {
+  '2026-04-02': 'Feriado · Día del Veterano y de los Caídos en Malvinas',
+  '2026-04-03': 'Feriado · Viernes Santo',
+  '2026-04-21': 'Jornada Institucional',
+  '2026-05-01': 'Feriado · Día del Trabajador',
+  '2026-05-25': 'Feriado · Día de la Revolución de Mayo',
+  '2026-06-10': 'Jornada Institucional',
+  '2026-06-15': 'Feriado · Paso a la Inmortalidad del Gral. Güemes',
+  '2026-06-20': 'Feriado · Paso a la Inmortalidad del Gral. Belgrano',
+  '2026-07-09': 'Feriado · Día de la Independencia',
+  '2026-07-10': 'Feriado · Puente turístico',
+  '2026-08-13': 'Jornada Institucional',
+  '2026-08-17': 'Feriado · Paso a la Inmortalidad del Gral. San Martín',
+  '2026-09-11': 'Día del Maestro',
+  '2026-09-21': 'Jornada Institucional',
+  '2026-10-12': 'Feriado · Día del Respeto a la Diversidad Cultural',
+  '2026-11-23': 'Feriado · Día de la Soberanía Nacional',
+  '2026-12-08': 'Feriado · Inmaculada Concepción de María',
+  '2026-12-25': 'Feriado · Navidad',
+};
+
+const JORNADAS=new Set(['2026-04-21','2026-06-10','2026-08-13','2026-09-21']);
+
+const PROFS_LIST=[
+  {id:'santander',name:'Santander Víctor',taller:'Máq. Herr. CNC II',turno:'Turno Mañana',tc:'var(--man)',tipo:'cnc',morning:true},
+  {id:'clozza',   name:'Clozza Fabrizio', taller:'Metalurgia Aplicada',turno:'Turno Mañana',tc:'var(--man)',tipo:'met',morning:true},
+  {id:'silva',    name:'Silva Marcelo',   taller:'Máq. Herr. CNC II',turno:'Turno Tarde', tc:'var(--tar)',tipo:'cnc',morning:false},
+  {id:'cambioli', name:'Cambioli Jorge',  taller:'Metalurgia Aplicada',turno:'Turno Tarde', tc:'var(--tar)',tipo:'met',morning:false},
+];
+
+let curProf=null,curMonth=4,curYear=2026,profClases={};
+
+function buildProfClases(prof){
+  const c={};
+  for(let div=1;div<=3;div++){
+    for(let grp=1;grp<=4;grp++){
+      const days=prof.morning
+        ?buildMorning(div,grp).filter(d=>d.type===prof.tipo)
+        :buildAfternoon(div,grp).filter(d=>d.type===prof.tipo);
+      days.forEach(d=>{c[dk(d.date)]={div,grp,type:d.type,gym:d.gym,rec:d.rec,originalDate:d.originalDate||null};});
+    }
+  }
+  return c;
+}
+
+function renderProfs(){
+  const c=document.getElementById('profs-container');
+  let h='';
+  PROFS_LIST.forEach(p=>{
+    const tc=p.tipo==='cnc'?'var(--cnc)':'var(--met)';
+    h+=`<div class="card" onclick="selectProf('${p.id}')">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="prof-turno" style="color:${p.tc}">${p.turno}</div>
+        <div class="card-title">${p.name}</div>
+        <div class="card-sub" style="color:${tc}">${p.taller}</div>
+      </div>
+    </div>`;
+  });
+  c.innerHTML=h;
+}
+
+function selectProf(id){
+  curProf=PROFS_LIST.find(p=>p.id===id);
+  profClases=buildProfClases(curProf);
+  curMonth=4;curYear=2026;
+  document.getElementById('hdr-name').textContent=curProf.name;
+  document.getElementById('hdr-sub').textContent=curProf.turno+' · '+curProf.taller;
+  renderCalendar();
+  document.getElementById('s-sel').classList.remove('active');
+  document.getElementById('s-cal').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goBack(){
+  document.getElementById('s-cal').classList.remove('active');
+  document.getElementById('s-sel').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function changeMonth(dir){
+  curMonth+=dir;
+  if(curMonth>11){curMonth=0;curYear++;}
+  if(curMonth<0){curMonth=11;curYear--;}
+  renderCalendar();
+}
+
+function renderCalendar(){
+  document.getElementById('nav-title').textContent=MONTHS[curMonth]+' '+curYear;
+  document.getElementById('prev-btn').disabled=(curMonth<=2&&curYear<=2026);
+  document.getElementById('next-btn').disabled=(curMonth>=10&&curYear>=2026);
+  const today=new Date();today.setHours(0,0,0,0);
+  const firstDay=new Date(curYear,curMonth,1);
+  let startDow=firstDay.getDay()-1;if(startDow<0)startDow=6;
+  const daysInMonth=new Date(curYear,curMonth+1,0).getDate();
+  const daysInPrev=new Date(curYear,curMonth,0).getDate();
+  const totalCells=Math.ceil((startDow+daysInMonth)/7)*7;
+  let html='';
+  for(let i=0;i<totalCells;i++){
+    let dayNum,month=curMonth,year=curYear,other=false;
+    if(i<startDow){dayNum=daysInPrev-(startDow-1-i);month=curMonth-1;if(month<0){month=11;year=curYear-1;}other=true;}
+    else if(i>=startDow+daysInMonth){dayNum=i-startDow-daysInMonth+1;month=curMonth+1;if(month>11){month=0;year=curYear+1;}other=true;}
+    else{dayNum=i-startDow+1;}
+    const d=new Date(year,month,dayNum);
+    const key=dk(d);
+    const clase=(!other)?profClases[key]:null;
+    const isToday=!other&&d.getTime()===today.getTime();
+    let cls='cal-day';
+    if(other)cls+=' other';
+    else if(isToday)cls+=' today';
+    let inner='';let noClase=false;let onclick='';
+    if(!other){
+      inner+=`<div class="cal-num">${dayNum}</div>`;
+      if(clase){
+        inner+=`<div class="cal-chip ${clase.type}">4°${DIV_LABEL[clase.div]} G${clase.grp}</div>`;
+        if(clase.gym) inner+=`<div class="cal-tag">E. F.</div>`;
+        if(clase.rec) inner+=`<div class="cal-tag">Recuper.</div>`;
+        cls+=' has-class';onclick=`onclick="openModal('${key}')"`;
+      } else {
+        const dow=d.getDay();
+        const dentroAnio=d>=new Date(2026,curProf.morning?4:2,curProf.morning?4:30)&&d<=new Date(2026,10,30);
+        if(dentroAnio&&dow>=1&&dow<=5){
+          const esR=isReceso(d),esF=NO_LECTIVOS.has(key);
+          const esLibre=!curProf.morning&&dow===5&&!esF&&!esR;
+          if(esR){noClase=true;inner+=`<div class="cal-tag">Receso</div>`;}
+          else if(esF){noClase=true;inner+=`<div class="cal-tag">${JORNADAS.has(key)?'Jornada':'Feriado'}</div>`;}
+          else if(esLibre){noClase=true;inner+=`<div class="cal-tag libre">Sin Asignar</div>`;}
+          if(noClase){cls+=' no-clase';onclick=`onclick="openModalNoclase('${key}')"`;}
+        }
+      }
+    }
+    html+=`<div class="${cls}" ${onclick}>${inner}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=html;
+}
+
+function openModal(key){
+  const cl=profClases[key];if(!cl)return;
+  const d=new Date(key+'T00:00:00');
+  const {div,grp,type,gym,rec,originalDate}=cl;
+  document.getElementById('m-date').textContent=`${DAYS_L[d.getDay()]} ${d.getDate()} de ${MONTHS[d.getMonth()]} ${d.getFullYear()}`.toUpperCase();
+  document.getElementById('m-group').textContent=`4° ${DIV_LABEL[div]} · Grupo ${grp}`;
+  let tags='';
+  if(gym) tags+=`<span class="modal-tag">Retiro 11:45 hs · Educación Física</span>`;
+  if(rec){
+    const orig=originalDate?`${originalDate.getDate()} de ${MONTHS[originalDate.getMonth()]}`:'';
+    tags+=`<span class="modal-tag">Recuperación de la clase del ${orig}</span>`;
+  }
+  document.getElementById('m-tags').innerHTML=tags;
+  document.getElementById('m-motivo').innerHTML='';
+  document.getElementById('m-motivo').innerHTML='';
+  document.getElementById('m-al-wrap').style.display='';
+  const alumnos=ALUMNOS[div+'_'+grp]||[];
+  document.getElementById('m-al').innerHTML=alumnos.map(a=>`<div class="modal-al-item">${a}</div>`).join('');
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+function openModalNoclase(key){
+  const d=new Date(key+'T00:00:00');
+  const esR=isReceso(d),esLib=!curProf.morning&&d.getDay()===5&&!NO_LECTIVOS.has(key)&&!esR;
+  const motivo=esLib?'Debés asignar esta clase al grupo que necesite recuperar o reforzar.':(MOTIVOS[key]||(esR?'Receso Escolar Invernal':'Sin clase'));
+  document.getElementById('m-date').textContent=`${DAYS_L[d.getDay()]} ${d.getDate()} de ${MONTHS[d.getMonth()]} ${d.getFullYear()}`.toUpperCase();
+  document.getElementById('m-group').textContent=esLib?'Sin Grupo Asignado':'Sin clase';
+  document.getElementById('m-tags').innerHTML='';
+  document.getElementById('m-motivo').innerHTML=`<div class="modal-motivo">${motivo}</div>`;
+  document.getElementById('m-al-wrap').style.display='none';
+  document.getElementById('m-al').innerHTML='';
+  document.getElementById('modal-ov').classList.add('open');
+}
+
+function closeModal(e){
+  if(!e||e.target===document.getElementById('modal-ov'))
+    document.getElementById('modal-ov').classList.remove('open');
+}
+
+renderProfs();
+</script>
+</body>
+</html>
