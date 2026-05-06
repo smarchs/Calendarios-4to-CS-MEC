@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -116,82 +117,83 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 .empty-msg{font-size:var(--md);color:var(--text3);padding:48px 0;text-align:center;font-weight:600}
 
 @media(min-width:768px){
-  .hero{padding:96px 64px 56px}
-  .hero-title{font-size:calc(var(--xl)*1.55)}
-  .hero-sub{font-size:var(--md)}
-  .hero-body{padding:48px 64px 100px;max-width:1100px}
-  .sel-label{margin:44px 0 16px}
-  .sel-grid{gap:16px}
-  .hdr{padding:0 48px;height:68px}
-  .tabs{padding:0 48px}
-  .tab-btn{padding:18px 22px 16px}
-  .tab-pane{padding:40px 48px 100px;max-width:1100px}
-  .hoy-grid{flex-direction:row;gap:16px}
-  .hoy-grid>.hoy-card{flex:1}
-  .prox-section{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .prox-section .sec-label{grid-column:1/-1;margin-bottom:0}
-  .proxima-card{margin-bottom:0}
-  .cal-cols{column-count:2;column-gap:40px}
-  .cal-cols .month-block{break-inside:avoid}
-  .info-two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .info-two-col .info-block{margin-bottom:0}
+.hero{padding:96px 64px 56px}
+.hero-title{font-size:calc(var(–xl)*1.55)}
+.hero-sub{font-size:var(–md)}
+.hero-body{padding:48px 64px 100px;max-width:1100px}
+.sel-label{margin:44px 0 16px}
+.sel-grid{gap:16px}
+.hdr{padding:0 48px;height:68px}
+.tabs{padding:0 48px}
+.tab-btn{padding:18px 22px 16px}
+.tab-pane{padding:40px 48px 100px;max-width:1100px}
+.hoy-grid{flex-direction:row;gap:16px}
+.hoy-grid>.hoy-card{flex:1}
+.prox-section{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prox-section .sec-label{grid-column:1/-1;margin-bottom:0}
+.proxima-card{margin-bottom:0}
+.cal-cols{column-count:2;column-gap:40px}
+.cal-cols .month-block{break-inside:avoid}
+.info-two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.info-two-col .info-block{margin-bottom:0}
 }
 
 /* DOCENTES EXTRA */
-.prof-turno{font-size:var(--xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.prof-turno{font-size:var(–xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
 /* MONTH NAV */
-.month-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--bg2);border-bottom:1px solid var(--border)}
-.nav-btn{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;font-family:inherit}
-.nav-btn:hover{background:var(--border)}.nav-btn:disabled{opacity:.3;cursor:default}
-.nav-title{font-size:var(--md);font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.04em}
+.month-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(–bg2);border-bottom:1px solid var(–border)}
+.nav-btn{width:34px;height:34px;border-radius:50%;background:var(–bg3);border:1px solid var(–border);color:var(–text2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s;font-family:inherit}
+.nav-btn:hover{background:var(–border)}.nav-btn:disabled{opacity:.3;cursor:default}
+.nav-title{font-size:var(–md);font-weight:800;color:var(–text);text-transform:uppercase;letter-spacing:.04em}
 /* CAL GRID */
 .cal-wrap{padding:16px 16px 80px}
 .cal-wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
-.cal-wday{text-align:center;font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;padding:6px 0}
+.cal-wday{text-align:center;font-size:var(–xs);font-weight:700;color:var(–text3);text-transform:uppercase;letter-spacing:.06em;padding:6px 0}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
-.cal-day{height:72px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:6px 7px;cursor:default;transition:box-shadow .15s,transform .15s;position:relative;overflow:hidden}
+.cal-day{height:72px;background:var(–bg2);border:1px solid var(–border);border-radius:10px;padding:6px 7px;cursor:default;transition:box-shadow .15s,transform .15s;position:relative;overflow:hidden}
 .cal-day.has-class{cursor:pointer}
 .cal-day.has-class:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
 .cal-day.no-clase{cursor:pointer;opacity:.75}
 .cal-day.no-clase:hover{opacity:1;box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
 .cal-day.other{background:transparent;border-color:transparent}
-.cal-day.today{border-color:var(--text3)}
-.cal-num{font-size:var(--xs);font-weight:700;color:var(--text3);margin-bottom:3px}
-.cal-day.has-class .cal-num{color:var(--text)}
-.cal-day.today .cal-num{background:var(--text);color:var(--bg);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px}
-.cal-chip{font-size:var(--xs);font-weight:800;padding:2px 5px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;line-height:1.3;display:inline-block}
-.cal-chip.cnc{background:var(--cnc-bg);color:var(--cnc)}
-.cal-chip.met{background:var(--met-bg);color:var(--met)}
-.cal-tag{font-size:8px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;line-height:1.3;display:block}
-.cal-tag.libre{color:var(--man);font-weight:800}
+.cal-day.today{border-color:var(–text3)}
+.cal-num{font-size:var(–xs);font-weight:700;color:var(–text3);margin-bottom:3px}
+.cal-day.has-class .cal-num{color:var(–text)}
+.cal-day.today .cal-num{background:var(–text);color:var(–bg);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px}
+.cal-chip{font-size:var(–xs);font-weight:800;padding:2px 5px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;line-height:1.3;display:inline-block}
+.cal-chip.cnc{background:var(–cnc-bg);color:var(–cnc)}
+.cal-chip.met{background:var(–met-bg);color:var(–met)}
+.cal-tag{font-size:8px;font-weight:700;color:var(–text3);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;line-height:1.3;display:block}
+.cal-tag.libre{color:var(–man);font-weight:800}
 /* MODAL */
 .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
 .modal-ov.open{opacity:1;pointer-events:all}
-.modal{background:var(--bg2);border-radius:24px 24px 0 0;width:100%;max-width:540px;padding:0 0 40px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.modal{background:var(–bg2);border-radius:24px 24px 0 0;width:100%;max-width:540px;padding:0 0 40px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .modal-ov.open .modal{transform:translateY(0)}
-.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:14px auto 20px}
-.modal-hdr{padding:0 24px 16px;border-bottom:1px solid var(--border)}
-.modal-date{font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
-.modal-group{font-size:var(--lg);font-weight:800;color:var(--text)}
+.modal-handle{width:36px;height:4px;background:var(–border2);border-radius:2px;margin:14px auto 20px}
+.modal-hdr{padding:0 24px 16px;border-bottom:1px solid var(–border)}
+.modal-date{font-size:var(–xs);font-weight:700;color:var(–text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.modal-group{font-size:var(–lg);font-weight:800;color:var(–text)}
 .modal-body{padding:16px 24px 0}
 .modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.modal-tag{padding:4px 12px;border-radius:100px;font-size:var(--xs);font-weight:700;background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
-.modal-al-title{font-size:var(--xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.modal-tag{padding:4px 12px;border-radius:100px;font-size:var(–xs);font-weight:700;background:var(–bg3);color:var(–text2);border:1px solid var(–border2)}
+.modal-al-title{font-size:var(–xs);font-weight:700;color:var(–text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
 .modal-al{display:flex;flex-direction:column;gap:6px}
-.modal-al-item{font-size:var(--sm);color:var(--text);padding:10px 14px;background:var(--bg3);border-radius:10px;font-weight:500}
-.modal-motivo{font-size:var(--sm);color:var(--text2);line-height:1.6;padding:14px 16px;background:var(--bg3);border-radius:12px;border:1px solid var(--border)}
-.modal-close{width:100%;margin-top:20px;padding:14px;background:var(--bg3);border:1px solid var(--border);border-radius:14px;font-size:var(--sm);font-weight:700;color:var(--text2);cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.06em}
-.modal-close:hover{background:var(--border)}
+.modal-al-item{font-size:var(–sm);color:var(–text);padding:10px 14px;background:var(–bg3);border-radius:10px;font-weight:500}
+.modal-motivo{font-size:var(–sm);color:var(–text2);line-height:1.6;padding:14px 16px;background:var(–bg3);border-radius:12px;border:1px solid var(–border)}
+.modal-close{width:100%;margin-top:20px;padding:14px;background:var(–bg3);border:1px solid var(–border);border-radius:14px;font-size:var(–sm);font-weight:700;color:var(–text2);cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.06em}
+.modal-close:hover{background:var(–border)}
 @media(min-width:768px){
-  .month-nav{padding:16px 48px}
-  .cal-wrap{padding:20px 48px 100px}
-  .cal-day{height:90px;padding:8px 10px}
-  .cal-chip{font-size:var(--xs)}
-  .modal-ov{align-items:center}
-  .modal{border-radius:24px;max-width:480px;margin:0 auto}
-  .sel-grid{grid-template-columns:repeat(4,1fr)}
+.month-nav{padding:16px 48px}
+.cal-wrap{padding:20px 48px 100px}
+.cal-day{height:90px;padding:8px 10px}
+.cal-chip{font-size:var(–xs)}
+.modal-ov{align-items:center}
+.modal{border-radius:24px;max-width:480px;margin:0 auto}
+.sel-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
+
 </head>
 <body>
 
@@ -290,18 +292,18 @@ function buildMorning(div,grp){
 }
 
 const ALUMNOS = {
-  '1_1': ['Cabrera, Agustina','Cortez Izquierdo, Joaquín I.','García Suárez, Ezequiel E.','Millaldeo, Geraldine','Sandoval, Alexis J.'],
-  '1_2': ['Aballay, Lautaro Nehuen','Campos, Priscila Giuliana','Condori Huarachi, Franco Denis','Fuentealba, Ailen del Carmen','Velásquez Sepúlveda, Álvaro Manuel'],
-  '1_3': ['Atis, Lautaro Emanuel','Gomez, Gimena Magdalena','González, Valentín','Hernandez, Mateo Bautista','Marinao, Alexis Alejo Nataniel'],
-  '1_4': ['Bova, Francisco Tomás','Colilaf, Benjamin Ian','Huentemil, Taiel Horacio','Miranda, Candela Valentina','Osses González, Samira Yasmin'],
+  '1_1': ['Cabrera, Agustina','Cortez Izquierdo, Joaquín Ignacio','García Suárez, Ezequiel Enrique','Millaldeo Venegas, Geraldine Daiana','Sandoval, Alexis Javier'],
+  '1_2': ['Aballay, Lautaro Nehúen','Campos, Priscila Giuliana','Condori Huarachi, Franco Denis','Fuentealba, Ailén del Carmen','Velásquez Sepúlveda, Álvaro Manuel'],
+  '1_3': ['Atis, Lautaro Emanuel','Gómez, Gimena Magdalena','González, Valentín Bruno','Hernández, Mateo Bautista','Marinao, Alexis Alejo Nataniel'],
+  '1_4': ['Bova, Francisco Tomás','Colilaf, Benjamín Ian','Huentemil, Taiel Horacio','Miranda, Candela Valentina','Osses González, Samira Yasmín'],
   '2_1': ['Aguayo, Daniel Esteban','Alegre, Camila Alelí','Barrios, Bruno Nicolás','Campos, Francisco','D\'Agostino, Milo Joaquín'],
-  '2_2': ['Amrein, Franco S.','Beroiza, Daiana Mailen','Hueitra Molines, Bautista','González Cortijo, Lucas Daniel','Mansilla, Rocío Belén','Vergara Lopez, Bruno Alejandro'],
-  '2_3': ['Álvarez, Denis Rafael','Arrue, Joaquín','Hernández, Gatica Lucio','Sánchez Garrido, Agustina Macarena','Sombra, Thiago Benjamín'],
+  '2_2': ['Amrein, Franco Silván','Beroiza, Daiana Mailén','Hueitra Molines, Bautista Gastón','González Cortijo, Lucas Daniel','Mansilla, Rocío Belén','Vergara López, Bruno Alejandro'],
+  '2_3': ['Álvarez, Denis Rafael','Arrue, Joaquín','Hernández Gatica, Lucio','Sánchez Garrido, Agustina Macarena','Sombra, Thiago Benjamín'],
   '2_4': ['Callejo Cholino, Uriel Desiderio','Carrasco, Matías Emanuel','Cerda, Samuel Sergio','Medina, Sofía Helena','Samuel Vázquez, Simón'],
-  '3_1': ['Benítez, Lisandro Agustín','Bou Abdo, Franco','Bravo, Lautaro Facundo','De la Hoz, Magdalena L.','Díaz, Tomás Tiziano','Villarruel, Fausto Nicanor'],
-  '3_2': ['Antrichipay Matus, Franco Jeremías','Bustos, Benjamín Pablo Isaías','Chandía, Daniela I.','González, Alma V.','Sánchez, Juan José','Rodríguez, Fernando'],
-  '3_3': ['Antinori, Thiago E.','Caram, Emir Omar','Carrieri, Luciano Valentín','Coronel, Tihara Anabella','Díaz Aramburu, Jeremías','Ruiz, Santiago B.'],
-  '3_4': ['Aliaga Álvarez, Tobías','Asenjo Rodríguez, Galo','Cide Bueno, Cala','Huaiquimil, Matías Oscar','Mhounh Maripini, Luca Francisco','Sáez, Melina A.'],
+  '3_1': ['Benítez, Lisandro Agustín','Bou Abdo, Franco','Bravo, Lautaro Facundo','De la Hoz, Magdalena Luján','Díaz, Tomás Tiziano','Villarruel, Fausto Nicanor'],
+  '3_2': ['Antinori, Thiago Elías','Bustos, Benjamín Pablo Isaías','Chandía, Daniela Ivana','González, Alma Valentina','Sánchez, Juan José','Rodríguez, Fernando Matías'],
+  '3_3': ['Antrichipay Matus, Franco Jeremías','Caram, Emir Omar','Carrieri, Luciano Valentín','Coronel, Tihara Anabella','Díaz Aramburu, Jeremías','Ruiz, Santiago Benjamín'],
+  '3_4': ['Aliaga Álvarez, Tobías','Asenjo Rodríguez, Galo','Cide Bueno, Cala','Huaiquimil, Matías Oscar','Mhounh Maripini, Luca Francisco','Sáez, Melina Adriana'],
 };
 
 const MOTIVOS = {
@@ -481,5 +483,6 @@ function closeModal(e){
 
 renderProfs();
 </script>
+
 </body>
 </html>
