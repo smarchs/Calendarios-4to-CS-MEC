@@ -146,7 +146,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
     <div class="hero-title">Calendario<br>Estudiantes</div>
     <div class="hero-sub">Talleres de <span style="color:var(--cnc);font-weight:700">Máq. Herr. CNC II</span> y <span style="color:var(--met);font-weight:700">Metalurgia Aplicada</span> — Elegí tu grupo para ver tu calendario.</div>
   </div>
-  <div class="hero-body" id="groups-container"></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchMainTab('grupos')">GRUPOS</button>
+    <button class="tab-btn" onclick="switchMainTab('info')">INFO</button>
+  </div>
+  <div id="main-grupos" class="tab-pane active">
+    <div class="hero-body" id="groups-container"></div>
+  </div>
+  <div id="main-info" class="tab-pane"></div>
 </div>
 
 <div id="s-grp" class="screen">
@@ -161,12 +168,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
     <button class="tab-btn active" onclick="switchTab('hoy')">HOY</button>
     <button class="tab-btn t-man" onclick="switchTab('man')">TURNO MAÑANA</button>
     <button class="tab-btn t-tar" onclick="switchTab('tar')">TURNO TARDE</button>
-    <button class="tab-btn" onclick="switchTab('info')">INFO</button>
   </div>
   <div id="tab-hoy" class="tab-pane active"></div>
   <div id="tab-man" class="tab-pane"></div>
   <div id="tab-tar" class="tab-pane"></div>
-  <div id="tab-info" class="tab-pane"></div>
 </div>
 
 <script>
@@ -213,6 +218,76 @@ function buildMorning(div,grp){
   return (MORNING_CAL[div+'_'+grp]||[]).map(e=>({date:new Date(e.date+'T00:00:00'),type:e.type,gym:e.gym,rec:false,originalDate:null}));
 }
 
+function switchMainTab(name){
+  document.querySelectorAll('#s-sel .tab-btn').forEach((b,i)=>b.classList.toggle('active',['grupos','info'][i]===name));
+  document.getElementById('main-grupos').classList.toggle('active', name==='grupos');
+  document.getElementById('main-info').classList.toggle('active', name==='info');
+  window.scrollTo(0,0);
+}
+
+function renderMainInfo(){
+  document.getElementById('main-info').innerHTML=`
+  <div style="padding:28px 24px 100px">
+  <div class="info-two-col">
+    <div class="info-block">
+      <div class="sec-label">FECHAS</div>
+      <div class="info-card">
+        <div class="irow"><span class="irow-l">INICIO TURNO TARDE</span><span class="irow-v">30 de marzo</span></div>
+        <div class="irow"><span class="irow-l">INICIO TURNO MAÑANA</span><span class="irow-v">4 de mayo</span></div>
+        <div class="irow"><span class="irow-l">RECESO INVERNAL</span><span class="irow-v">13–24 julio</span></div>
+        <div class="irow"><span class="irow-l">CIERRE</span><span class="irow-v">30 de noviembre</span></div>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="sec-label">DOCENTES</div>
+      <div class="info-card">
+        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--man)">TURNO MAÑANA</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
+            <span style="font-size:var(--sm);font-weight:700;color:var(--cnc);text-transform:uppercase">Máq. Herr. CNC II</span>
+            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Santander Víctor</span>
+          </div>
+        </div>
+        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--man)">TURNO MAÑANA</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
+            <span style="font-size:var(--sm);font-weight:700;color:var(--met);text-transform:uppercase">Metalurgia Aplicada</span>
+            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Clozza Fabrizio</span>
+          </div>
+        </div>
+        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--tar)">TURNO TARDE</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
+            <span style="font-size:var(--sm);font-weight:700;color:var(--cnc);text-transform:uppercase">Máq. Herr. CNC II</span>
+            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Silva Marcelo</span>
+          </div>
+        </div>
+        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--tar)">TURNO TARDE</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
+            <span style="font-size:var(--sm);font-weight:700;color:var(--met);text-transform:uppercase">Metalurgia Aplicada</span>
+            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Cambioli Jorge</span>
+          </div>
+        </div>
+      </div>
+      <div class="sec-label" style="margin-top:20px">REFERENCIAS</div>
+      <div class="info-card">
+        <div class="icard-head"><div class="icard-icon" style="background:var(--cnc-bg)">⏰</div>
+          <div><div class="icard-title">RETIRO 11:45 HS</div><div class="icard-sub">Solo turno mañana</div></div>
+        </div>
+        <div class="icard-body">Ese día tu división tiene Educación Física. La clase termina a las 11:45 hs para que llegues a tiempo. El horario habitual es hasta las 13:12 hs.</div>
+      </div>
+      <div class="info-card">
+        <div class="icard-head"><div class="icard-icon" style="background:var(--met-bg)">📅</div>
+          <div><div class="icard-title">CLASE DE RECUPERACIÓN</div><div class="icard-sub">Solo turno tarde</div></div>
+        </div>
+        <div class="icard-body">Tu clase cayó en feriado o jornada institucional. La recuperación es el viernes de esa misma semana, mismo espacio y mismo docente.</div>
+      </div>
+    </div>
+  </div>
+  </div>`;
+}
+
 function renderGroups(){
   let h='';
   for(let div=1;div<=3;div++){
@@ -236,7 +311,6 @@ function selectGroup(div,grp){
   renderHoy(div,grp,mDays,aDays);
   renderCal('tab-man',mDays,'manana');
   renderCal('tab-tar',aDays,'tarde');
-  renderInfo(div,grp);
   switchTab('hoy');
   document.getElementById('s-sel').classList.remove('active');
   document.getElementById('s-grp').classList.add('active');
@@ -246,12 +320,13 @@ function selectGroup(div,grp){
 function goBack(){
   document.getElementById('s-grp').classList.remove('active');
   document.getElementById('s-sel').classList.add('active');
+  switchMainTab('grupos');
   window.scrollTo(0,0);
 }
 
 function switchTab(name){
-  const names=['hoy','man','tar','info'];
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',names[i]===name));
+  const names=['hoy','man','tar'];
+  document.querySelectorAll('#s-grp .tab-btn').forEach((b,i)=>b.classList.toggle('active',names[i]===name));
   document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   window.scrollTo(0,0);
@@ -324,68 +399,15 @@ function renderCal(tabId,days,turno){
   document.getElementById(tabId).innerHTML=h;
 }
 
-function renderInfo(div,grp){
-  document.getElementById('tab-info').innerHTML=`
-  <div class="info-two-col">
-    <div class="info-block">
-      <div class="sec-label">FECHAS</div>
-      <div class="info-card">
-        <div class="irow"><span class="irow-l">INICIO TURNO TARDE</span><span class="irow-v">30 de marzo</span></div>
-        <div class="irow"><span class="irow-l">INICIO TURNO MAÑANA</span><span class="irow-v">4 de mayo</span></div>
-        <div class="irow"><span class="irow-l">RECESO INVERNAL</span><span class="irow-v">13–24 julio</span></div>
-        <div class="irow"><span class="irow-l">CIERRE</span><span class="irow-v">30 de noviembre</span></div>
-      </div>
-    </div>
-    <div class="info-block">
-      <div class="sec-label">DOCENTES</div>
-      <div class="info-card">
-        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
-          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--man)">TURNO MAÑANA</span>
-          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
-            <span style="font-size:var(--sm);font-weight:700;color:var(--cnc);text-transform:uppercase">Máq. Herr. CNC II</span>
-            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Santander Víctor</span>
-          </div>
-        </div>
-        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
-          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--man)">TURNO MAÑANA</span>
-          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
-            <span style="font-size:var(--sm);font-weight:700;color:var(--met);text-transform:uppercase">Metalurgia Aplicada</span>
-            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Clozza Fabrizio</span>
-          </div>
-        </div>
-        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
-          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--tar)">TURNO TARDE</span>
-          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
-            <span style="font-size:var(--sm);font-weight:700;color:var(--cnc);text-transform:uppercase">Máq. Herr. CNC II</span>
-            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Silva Marcelo</span>
-          </div>
-        </div>
-        <div class="irow" style="flex-direction:column;align-items:flex-start;gap:4px">
-          <span style="font-size:var(--xs);font-weight:800;letter-spacing:.12em;color:var(--tar)">TURNO TARDE</span>
-          <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px">
-            <span style="font-size:var(--sm);font-weight:700;color:var(--met);text-transform:uppercase">Metalurgia Aplicada</span>
-            <span style="font-size:var(--sm);font-weight:600;color:var(--text2);white-space:nowrap">Prof. Cambioli Jorge</span>
-          </div>
-        </div>
-      </div>
-      <div class="sec-label" style="margin-top:20px">REFERENCIAS</div>
-      <div class="info-card">
-        <div class="icard-head"><div class="icard-icon" style="background:var(--cnc-bg)">⏰</div>
-          <div><div class="icard-title">RETIRO 11:45 HS</div><div class="icard-sub">Solo turno mañana</div></div>
-        </div>
-        <div class="icard-body">Ese día tu división tiene Educación Física. La clase termina a las 11:45 hs para que llegues a tiempo. El horario habitual es hasta las 13:12 hs.</div>
-      </div>
-      <div class="info-card">
-        <div class="icard-head"><div class="icard-icon" style="background:var(--met-bg)">📅</div>
-          <div><div class="icard-title">CLASE DE RECUPERACIÓN</div><div class="icard-sub">Solo turno tarde</div></div>
-        </div>
-        <div class="icard-body">Tu clase cayó en feriado o jornada institucional. La recuperación es el viernes de esa misma semana, mismo espacio y mismo docente.</div>
-      </div>
-    </div>
-  </div>`;
-}
+
 
 renderGroups();
+renderMainInfo();
 </script>
+
+<div style="text-align:center;padding:24px 28px 32px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;line-height:1.9">
+  <span style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase">Actualizado el 14 de mayo de 2026</span><br>
+  <span style="font-size:10px;color:var(--text3);letter-spacing:.02em">· La pestaña INFO se movió a la pantalla principal y es común para todos los grupos.</span>
+</div>
 </body>
 </html>
