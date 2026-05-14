@@ -151,7 +151,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
     <button class="tab-btn" onclick="switchMainTab('info')">INFO</button>
   </div>
   <div id="main-grupos" class="tab-pane active">
-    <div class="hero-body" id="groups-container"></div>
+    <div id="groups-container" style="padding:0"></div>
   </div>
   <div id="main-info" class="tab-pane"></div>
 </div>
@@ -227,7 +227,6 @@ function switchMainTab(name){
 
 function renderMainInfo(){
   document.getElementById('main-info').innerHTML=`
-  <div style="padding:28px 24px 100px">
   <div class="info-two-col">
     <div class="info-block">
       <div class="sec-label">FECHAS</div>
@@ -284,14 +283,13 @@ function renderMainInfo(){
         <div class="icard-body">Tu clase cayó en feriado o jornada institucional. La recuperación es el viernes de esa misma semana, mismo espacio y mismo docente.</div>
       </div>
     </div>
-  </div>
   </div>`;
 }
 
 function renderGroups(){
   let h='';
   for(let div=1;div<=3;div++){
-    h+=`<div class="sel-label">4° ${DIV_LABEL[div]}</div><div class="sel-grid">`;
+    h+=`<div class="sel-label" style="margin-left:0">4° ${DIV_LABEL[div]}</div><div class="sel-grid">`;
     for(let grp=1;grp<=4;grp++){
       h+=`<div class="card" onclick="selectGroup(${div},${grp})">
         <div class="card-stripe"></div>
